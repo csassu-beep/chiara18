@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiara Nails — Nail Artist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0B0E;
+  --bg2:#131117;
+  --bg3:#1A1720;
+  --gold:#C9A96E;
+  --gold-light:#E8CC96;
+  --gold-pale:rgba(201,169,110,0.12);
+  --rose:#E8B4C0;
+  --rose-deep:#C47A8E;
+  --rose-pale:rgba(232,180,192,0.08);
+  --cream:#F5EDE4;
+  --text:#F0EAE2;
+  --text-mid:rgba(240,234,226,0.6);
+  --text-low:rgba(240,234,226,0.35);
+  --border:rgba(201,169,110,0.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none}
+
+/* CUSTOM CURSOR */
+.cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease;transform:translate(-50%,-50%)}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(201,169,110,0.5);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.08s ease,width 0.2s,height 0.2s,opacity 0.2s;transform:translate(-50%,-50%)}
+.cursor-ring.expand{width:56px;height:56px;opacity:0.4}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:2rem 3.5rem;transition:background 0.4s,padding 0.3s}
+nav.scrolled{background:rgba(13,11,14,0.92);backdrop-filter:blur(18px);padding:1.2rem 3.5rem;border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-light);text-decoration:none}
+.nav-logo span{color:var(--rose)}
+.nav-links{display:flex;gap:2.8rem;list-style:none}
+.nav-links a{font-size:0.72rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-mid);text-decoration:none;transition:color 0.25s}
+.nav-links a:hover{color:var(--gold)}
+.nav-book{background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Jost',sans-serif;font-size:0.72rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;padding:0.65rem 1.6rem;cursor:none;transition:background 0.25s,color 0.25s}
+.nav-book:hover{background:var(--gold);color:var(--bg)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:10rem 3.5rem 6rem;position:relative;z-index:2}
+.hero-eyebrow{font-size:0.68rem;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+.hero-eyebrow::before{content:'';display:inline-block;width:40px;height:1px;background:var(--gold)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.8rem,6vw,7rem);line-height:0.95;font-weight:300;color:var(--cream);letter-spacing:-0.02em;margin-bottom:2.5rem}
+.hero h1 em{font-style:italic;color:var(--gold-light)}
+.hero h1 .outline{-webkit-text-stroke:1px rgba(201,169,110,0.5);color:transparent}
+.hero-sub{font-size:0.9rem;font-weight:200;line-height:1.85;color:var(--text-mid);max-width:380px;margin-bottom:3rem}
+.hero-ctas{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--bg);border:none;font-family:'Jost',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;padding:1rem 2.4rem;cursor:none;text-decoration:none;display:inline-block;transition:background 0.25s,transform 0.2s}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-ghost{background:transparent;border:none;font-family:'Jost',sans-serif;font-size:0.78rem;font-weight:300;letter-spacing:0.1em;color:var(--text-mid);cursor:none;text-decoration:none;display:inline-flex;align-items:center;gap:0.6rem;transition:color 0.25s}
+.btn-ghost::after{content:'→';transition:transform 0.2s}
+.btn-ghost:hover{color:var(--rose)}
+.btn-ghost:hover::after{transform:translateX(4px)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--gold-light);display:block;line-height:1}
+.stat-l{font-size:0.68rem;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-low);margin-top:0.3rem}
+
+/* Hero right — gallery mosaic */
+.hero-right{position:relative;overflow:hidden}
+.hero-mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;height:100%;gap:2px}
+.mosaic-cell{overflow:hidden;position:relative;background:var(--bg3)}
+.mosaic-cell:first-child{grid-row:span 2}
+.mosaic-cell::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;padding:0.7rem 1rem;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);background:linear-gradient(transparent,rgba(13,11,14,0.8));opacity:0;transition:opacity 0.3s}
+.mosaic-cell:hover::after{opacity:1}
+.mosaic-cell svg{width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)}
+.mosaic-cell:hover svg{transform:scale(1.06)}
+
+/* Decorative line */
+.hero-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* MARQUEE */
+.marquee-wrap{padding:1.4rem 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-item{font-size:0.7rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-low);padding:0 2.5rem}
+.marquee-dot{color:var(--gold);margin-right:2.5rem}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SERVICES */
+.section{padding:7rem 3.5rem}
+.section-label{font-size:0.68rem;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
+.section-label::before{content:'';display:inline-block;width:32px;height:1px;background:var(--gold)}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.02em;line-height:1.1;margin-bottom:1rem}
+.section-title em{font-style:italic;color:var(--gold-light)}
+
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:4rem;border:1px solid var(--border)}
+.service-card{padding:3rem 2.5rem;border:none;background:var(--bg2);transition:background 0.3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94)}
+.service-card:hover{background:var(--bg3)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-num{font-family:'Cormorant Garamond',serif;font-size:0.85rem;color:var(--gold);letter-spacing:0.1em;margin-bottom:2rem;display:block}
+.service-icon{font-size:1.8rem;margin-bottom:1.2rem;display:block}
+.service-name{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;color:var(--cream);margin-bottom:0.8rem;letter-spacing:0.02em}
+.service-desc{font-size:0.83rem;font-weight:200;line-height:1.75;color:var(--text-mid);margin-bottom:1.8rem}
+.service-price{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gold-light);letter-spacing:0.05em}
+.service-price span{font-size:0.75rem;font-family:'Jost',sans-serif;color:var(--text-low);font-weight:200;letter-spacing:0.1em}
+
+/* PORTFOLIO */
+.portfolio-section{padding:7rem 0;background:var(--bg)}
+.portfolio-header{padding:0 3.5rem;margin-bottom:4rem}
+.portfolio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:0 3.5rem}
+.portfolio-item{aspect-ratio:3/4;overflow:hidden;position:relative;background:var(--bg3);cursor:none}
+.portfolio-item:nth-child(3n+1){aspect-ratio:3/5}
+.portfolio-overlay{position:absolute;inset:0;background:rgba(13,11,14,0.7);display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;opacity:0;transition:opacity 0.35s}
+.portfolio-item:hover .portfolio-overlay{opacity:1}
+.portfolio-tag{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.portfolio-name-card{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream)}
+
+/* Nail art SVG items */
+.nail-preview{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+
+/* ABOUT */
+.about-section{padding:7rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.about-visual{position:relative}
+.about-frame{border:1px solid var(--border);padding:2px;position:relative}
+.about-frame::before{content:'';position:absolute;top:-12px;left:-12px;right:12px;bottom:12px;border:1px solid rgba(201,169,110,0.1);z-index:-1}
+.about-badge{position:absolute;bottom:-1.5rem;right:-1.5rem;background:var(--gold);color:var(--bg);padding:1.2rem 1.5rem;text-align:center;z-index:2}
+.about-badge strong{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:400;display:block;line-height:1}
+.about-badge span{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:300}
+.about-text .section-label{margin-bottom:1.5rem}
+.about-text p{font-size:0.92rem;font-weight:200;line-height:1.9;color:var(--text-mid);margin-bottom:1.2rem}
+.about-text p strong{color:var(--rose);font-weight:400}
+.skills-list{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:2rem}
+.skill-tag{border:1px solid var(--border);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-mid);padding:0.4rem 0.9rem;transition:border-color 0.2s,color 0.2s}
+.skill-tag:hover{border-color:var(--gold);color:var(--gold)}
+
+/* BOOKING */
+.booking-section{padding:7rem 3.5rem;background:var(--bg2);border-top:1px solid var(--border)}
+.booking-inner{max-width:700px;margin:0 auto;text-align:center}
+.booking-inner .section-label{justify-content:center}
+.booking-inner .section-label::before{display:none}
+.booking-inner .section-title{margin-bottom:0.8rem}
+.booking-sub{font-size:0.88rem;font-weight:200;color:var(--text-mid);line-height:1.75;margin-bottom:3.5rem}
+.booking-form{display:flex;flex-direction:column;gap:0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1px}
+.form-field{position:relative;border:1px solid var(--border);border-collapse:collapse;margin:-1px 0 0 -1px}
+.form-field.full{grid-column:span 2}
+.form-field label{position:absolute;top:1.2rem;left:1.5rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:300}
+.form-field input,.form-field select,.form-field textarea{width:100%;background:transparent;border:none;outline:none;font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:200;color:var(--text);padding:2.8rem 1.5rem 1rem;transition:background 0.2s}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{background:rgba(201,169,110,0.04)}
+.form-field select option{background:var(--bg2);color:var(--text)}
+.form-field textarea{resize:none;height:100px}
+.form-submit{background:var(--gold);color:var(--bg);border:none;font-family:'Jost',sans-serif;font-size:0.75rem;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;padding:1.3rem;cursor:none;transition:background 0.25s;margin-top:1px;width:100%}
+.form-submit:hover{background:var(--gold-light)}
+
+/* REVIEWS */
+.reviews-section{padding:7rem 3.5rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:4rem;border:1px solid var(--border)}
+.review-item{padding:2.5rem;background:var(--bg2)}
+.review-stars{color:var(--gold);font-size:0.7rem;letter-spacing:0.2em;margin-bottom:1.5rem}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;font-style:italic;color:var(--cream);line-height:1.65;margin-bottom:1.8rem}
+.review-author{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-low)}
+.review-author strong{color:var(--rose);font-weight:400}
+
+/* INSTAGRAM */
+.insta-section{padding:5rem 3.5rem;text-align:center;border-top:1px solid var(--border)}
+.insta-handle{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold-light);letter-spacing:0.05em;margin:1.5rem 0;font-style:italic}
+.insta-sub{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-low)}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:4rem 3.5rem 2.5rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem}
+.footer-brand .nav-logo{display:block;margin-bottom:1.2rem}
+.footer-brand p{font-size:0.82rem;font-weight:200;color:var(--text-low);line-height:1.75;max-width:280px}
+.footer-col h5{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;font-weight:300}
+.footer-col a{display:block;font-size:0.82rem;font-weight:200;color:var(--text-low);text-decoration:none;margin-bottom:0.6rem;transition:color 0.2s;letter-spacing:0.04em}
+.footer-col a:hover{color:var(--rose)}
+.footer-bottom{border-top:1px solid var(--border);padding:1.5rem 3.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.68rem;letter-spacing:0.12em;color:var(--text-low);flex-wrap:wrap;gap:0.5rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:2.5rem;right:2.5rem;background:var(--bg3);border:1px solid var(--gold);color:var(--gold-light);padding:1rem 1.8rem;font-size:0.78rem;letter-spacing:0.08em;opacity:0;transform:translateY(12px);transition:opacity 0.3s,transform 0.3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* Load animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-left > *{opacity:0;animation:fadeUp 0.9s cubic-bezier(0.25,0.46,0.45,0.94) forwards}
+.hero-eyebrow{animation-delay:0.2s}
+.hero h1{animation-delay:0.4s}
+.hero-sub{animation-delay:0.55s}
+.hero-ctas{animation-delay:0.7s}
+.hero-stats{animation-delay:0.85s}
+
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:8rem 1.5rem 3rem}
+  .hero-right{height:50vh}
+  .hero-mosaic{grid-template-rows:1fr 1fr}
+  .section{padding:5rem 1.5rem}
+  .services-grid{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr);padding:0 1.5rem}
+  .about-section{grid-template-columns:1fr;padding:5rem 1.5rem;gap:3rem}
+  .booking-section{padding:5rem 1.5rem}
+  .reviews-grid{grid-template-columns:1fr}
+  .reviews-section{padding:5rem 1.5rem}
+  footer{grid-template-columns:1fr;padding:3rem 1.5rem;gap:2.5rem}
+  .footer-bottom{padding:1rem 1.5rem}
+  .insta-section{padding:3rem 1.5rem}
+  .portfolio-header{padding:0 1.5rem}
+  .form-row{grid-template-columns:1fr}
+  .form-field.full{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Chiara<span>.</span>Nails</a>
+  <ul class="nav-links">
+    <li><a href="#servizi">Servizi</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">Chi sono</a></li>
+    <li><a href="#recensioni">Recensioni</a></li>
+  </ul>
+  <button class="nav-book" onclick="scrollTo('#booking')">Prenota ora</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Nail Artist</div>
+    <h1>L'arte<br>sulle tue <em>unghie.</em><br><span class="outline">Ogni</span> volta.</h1>
+    <p class="hero-sub">Trasformo le unghie in piccoli capolavori. Ogni set è studiato su misura per te — dal gel al nail art più elaborato. Perché ogni dettaglio merita attenzione.</p>
+    <div class="hero-ctas">
+      <a href="#booking" class="btn-gold">Prenota un appuntamento</a>
+      <a href="#portfolio" class="btn-ghost">Vedi il portfolio</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-n">600+</span><div class="stat-l">Clienti felici</div></div>
+      <div><span class="stat-n">8</span><div class="stat-l">Anni di esperienza</div></div>
+      <div><span class="stat-n">4.9★</span><div class="stat-l">Valutazione media</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <!-- Cell 1: French manicure elaborata -->
+      <div class="mosaic-cell" data-label="French Luxe">
+        <svg viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="500" fill="#1A1720"/>
+          <rect width="300" height="500" fill="url(#roseGrad1)" opacity="0.4"/>
+          <defs>
+            <radialGradient id="roseGrad1" cx="60%" cy="30%"><stop offset="0%" stop-color="#E8B4C0" stop-opacity="0.3"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+          </defs>
+          <!-- Mano stilizzata con unghie -->
+          <g transform="translate(40,80)">
+            <!-- Dita -->
+            <rect x="90" y="120" width="28" height="140" rx="14" fill="#F5DDD0"/>
+            <rect x="125" y="95" width="28" height="165" rx="14" fill="#F5DDD0"/>
+            <rect x="160" y="100" width="28" height="160" rx="14" fill="#F5DDD0"/>
+            <rect x="195" y="118" width="26" height="142" rx="13" fill="#F5DDD0"/>
+            <!-- Unghie French -->
+            <rect x="90" y="120" width="28" height="48" rx="14" fill="#F0E8E5"/>
+            <rect x="125" y="95" width="28" height="48" rx="14" fill="#F0E8E5"/>
+            <rect x="160" y="100" width="28" height="48" rx="14" fill="#F0E8E5"/>
+            <rect x="195" y="118" width="26" height="46" rx="13" fill="#F0E8E5"/>
+            <!-- French tips bianche -->
+            <path d="M90 120 Q104 118 118 120 L118 138 Q104 134 90 138 Z" fill="white" opacity="0.9"/>
+            <path d="M125 95 Q139 93 153 95 L153 113 Q139 109 125 113 Z" fill="white" opacity="0.9"/>
+            <path d="M160 100 Q174 98 188 100 L188 118 Q174 114 160 118 Z" fill="white" opacity="0.9"/>
+            <path d="M195 118 Q208 116 221 118 L221 135 Q208 131 195 135 Z" fill="white" opacity="0.9"/>
+            <!-- Glitter detail -->
+            <circle cx="104" cy="148" r="1.5" fill="#C9A96E" opacity="0.9"/>
+            <circle cx="139" cy="125" r="1.5" fill="#C9A96E" opacity="0.9"/>
+            <circle cx="174" cy="128" r="1.5" fill="#C9A96E" opacity="0.9"/>
+            <circle cx="208" cy="146" r="1.5" fill="#C9A96E" opacity="0.9"/>
+            <!-- Palmo -->
+            <path d="M80 260 Q80 340 110 360 L210 360 Q240 340 240 260 L80 260Z" fill="#F0C8B0"/>
+          </g>
+          <!-- Label -->
+          <text x="150" y="470" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="16" fill="#C9A96E" font-style="italic" letter-spacing="2">French Luxe</text>
+        </svg>
+      </div>
+      <!-- Cell 2: Nail art floreale -->
+      <div class="mosaic-cell" data-label="Floral Art">
+        <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="260" fill="#131117"/>
+          <defs><radialGradient id="gFloral" cx="50%" cy="50%"><stop offset="0%" stop-color="#3D1A28" stop-opacity="0.6"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+          <rect width="300" height="260" fill="url(#gFloral)"/>
+          <!-- 4 unghie con floral art -->
+          <g>
+            <!-- Unghi 1 -->
+            <rect x="18" y="40" width="48" height="72" rx="24" fill="#E8B4C0"/>
+            <circle cx="42" cy="70" r="10" fill="#C47A8E"/>
+            <circle cx="42" cy="70" r="6" fill="#E8B4C0"/>
+            <circle cx="42" cy="70" r="2" fill="#C9A96E"/>
+            <circle cx="35" cy="62" r="4" fill="#E8D0D8" opacity="0.7"/>
+            <circle cx="50" cy="63" r="3.5" fill="#E8D0D8" opacity="0.7"/>
+            <circle cx="52" cy="78" r="3.5" fill="#E8D0D8" opacity="0.7"/>
+            <circle cx="35" cy="79" r="4" fill="#E8D0D8" opacity="0.7"/>
+            <!-- Unghi 2 -->
+            <rect x="82" y="28" width="52" height="80" rx="26" fill="#1A0D14"/>
+            <circle cx="108" cy="68" r="12" fill="#C47A8E" opacity="0.8"/>
+            <circle cx="108" cy="68" r="7" fill="#E8B4C0"/>
+            <circle cx="108" cy="68" r="3" fill="#C9A96E"/>
+            <line x1="98" y1="58" x2="90" y2="50" stroke="#E8D0D8" stroke-width="1.5" opacity="0.5"/>
+            <line x1="118" y1="58" x2="126" y2="50" stroke="#E8D0D8" stroke-width="1.5" opacity="0.5"/>
+            <line x1="98" y1="78" x2="90" y2="86" stroke="#E8D0D8" stroke-width="1.5" opacity="0.5"/>
+            <line x1="118" y1="78" x2="126" y2="86" stroke="#E8D0D8" stroke-width="1.5" opacity="0.5"/>
+            <!-- Unghi 3 -->
+            <rect x="148" y="32" width="52" height="76" rx="26" fill="#E8B4C0"/>
+            <circle cx="174" cy="66" r="10" fill="white" opacity="0.8"/>
+            <circle cx="174" cy="66" r="5" fill="#C47A8E"/>
+            <circle cx="162" cy="58" r="5" fill="white" opacity="0.6"/>
+            <circle cx="186" cy="58" r="5" fill="white" opacity="0.6"/>
+            <circle cx="186" cy="75" r="5" fill="white" opacity="0.6"/>
+            <circle cx="162" cy="75" r="5" fill="white" opacity="0.6"/>
+            <!-- Unghi 4 -->
+            <rect x="214" y="44" width="46" height="68" rx="23" fill="#1A0D14"/>
+            <text x="237" y="82" text-anchor="middle" font-size="22">✦</text>
+          </g>
+          <text x="150" y="145" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#C9A96E" font-style="italic" letter-spacing="2" opacity="0.7">Floral Art</text>
+        </svg>
+      </div>
+      <!-- Cell 3: Ombre / gradient -->
+      <div class="mosaic-cell" data-label="Ombré Glow">
+        <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="260" fill="#0D0B0E"/>
+          <defs>
+            <linearGradient id="ombreG1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#E8B4C0"/>
+              <stop offset="100%" stop-color="#7B3550"/>
+            </linearGradient>
+            <linearGradient id="ombreG2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#C9A96E"/>
+              <stop offset="100%" stop-color="#5A3E20"/>
+            </linearGradient>
+            <linearGradient id="ombreG3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#E8B4C0"/>
+              <stop offset="60%" stop-color="#C47A8E"/>
+              <stop offset="100%" stop-color="#3D1428"/>
+            </linearGradient>
+          </defs>
+          <rect x="28" y="35" width="46" height="78" rx="23" fill="url(#ombreG1)"/>
+          <rect x="84" y="22" width="50" height="90" rx="25" fill="url(#ombreG2)"/>
+          <rect x="146" y="26" width="50" height="86" rx="25" fill="url(#ombreG3)"/>
+          <rect x="208" y="40" width="46" height="74" rx="23" fill="url(#ombreG1)"/>
+          <!-- Glitter overlay -->
+          <circle cx="51" cy="48" r="1.5" fill="white" opacity="0.7"/>
+          <circle cx="65" cy="42" r="1" fill="white" opacity="0.5"/>
+          <circle cx="45" cy="55" r="1" fill="white" opacity="0.5"/>
+          <circle cx="109" cy="32" r="1.5" fill="white" opacity="0.7"/>
+          <circle cx="171" cy="35" r="1.5" fill="white" opacity="0.7"/>
+          <circle cx="231" cy="50" r="1.5" fill="white" opacity="0.7"/>
+          <text x="150" y="145" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#C9A96E" font-style="italic" letter-spacing="2" opacity="0.7">Ombré Glow</text>
+        </svg>
+      </div>
+      <!-- Cell 4: Nail art geometrica -->
+      <div class="mosaic-cell" data-label="Geometric">
+        <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="260" fill="#131117"/>
+          <defs><radialGradient id="gGeo" cx="30%" cy="60%"><stop offset="0%" stop-color="#C9A96E" stop-opacity="0.15"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+          <rect width="300" height="260" fill="url(#gGeo)"/>
+          <!-- Unghie con pattern geometrici -->
+          <rect x="22" y="38" width="46" height="76" rx="23" fill="#1E1B22"/>
+          <line x1="22" y1="80" x2="68" y2="80" stroke="#C9A96E" stroke-width="1.5" opacity="0.8"/>
+          <line x1="45" y1="38" x2="45" y2="114" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+
+          <rect x="80" y="24" width="50" height="88" rx="25" fill="#1E1B22"/>
+          <polygon points="105,36 115,56 95,56" fill="#C9A96E" opacity="0.7"/>
+          <polygon points="105,70 115,90 95,90" fill="#E8B4C0" opacity="0.5"/>
+
+          <rect x="142" y="28" width="50" height="84" rx="25" fill="#E8B4C0" opacity="0.9"/>
+          <rect x="142" y="28" width="50" height="42" rx="25" fill="#1E1B22" opacity="0.9"/>
+          <line x1="152" y1="52" x2="182" y2="52" stroke="#C9A96E" stroke-width="2"/>
+          <circle cx="167" cy="40" r="8" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+
+          <rect x="204" y="40" width="48" height="74" rx="24" fill="#1E1B22"/>
+          <rect x="212" y="48" width="32" height="32" rx="4" fill="none" stroke="#C9A96E" stroke-width="1.5" opacity="0.7"/>
+          <rect x="218" y="54" width="20" height="20" rx="2" fill="#C9A96E" opacity="0.3"/>
+          <text x="150" y="145" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#C9A96E" font-style="italic" letter-spacing="2" opacity="0.7">Geometric</text>
+        </svg>
+      </div>
+      <!-- Cell 5 -->
+      <div class="mosaic-cell" data-label="Chrome & Gloss">
+        <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="300" height="260" fill="#0D0B0E"/>
+          <defs>
+            <linearGradient id="chromG" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E8CC96"/>
+              <stop offset="40%" stop-color="#F5EDE0"/>
+              <stop offset="70%" stop-color="#C9A96E"/>
+              <stop offset="100%" stop-color="#8B6B3C"/>
+            </linearGradient>
+          </defs>
+          <rect x="24" y="35" width="46" height="78" rx="23" fill="url(#chromG)"/>
+          <rect x="82" y="22" width="50" height="90" rx="25" fill="url(#chromG)"/>
+          <rect x="144" y="26" width="50" height="86" rx="25" fill="url(#chromG)"/>
+          <rect x="206" y="38" width="46" height="76" rx="23" fill="url(#chromG)"/>
+          <!-- Specchio highlight -->
+          <ellipse cx="37" cy="46" rx="8" ry="4" fill="white" opacity="0.4" transform="rotate(-30,37,46)"/>
+          <ellipse cx="97" cy="33" rx="9" ry="4" fill="white" opacity="0.4" transform="rotate(-30,97,33)"/>
+          <ellipse cx="159" cy="37" rx="9" ry="4" fill="white" opacity="0.4" transform="rotate(-30,159,37)"/>
+          <ellipse cx="219" cy="49" rx="8" ry="4" fill="white" opacity="0.4" transform="rotate(-30,219,49)"/>
+          <text x="150" y="145" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" fill="#C9A96E" font-style="italic" letter-spacing="2" opacity="0.7">Chrome &amp; Gloss</text>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Gel Naturale<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Nail Art Personalizzata<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Chrome &amp; Mirror<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">French Manicure<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Ricostruzione Acrilica<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Korean Lashes<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Lash Lift &amp; Tint<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Soft Gel Tips<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Nail Art 3D<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Gel Naturale<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Nail Art Personalizzata<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Chrome &amp; Mirror<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">French Manicure<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Ricostruzione Acrilica<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Korean Lashes<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Lash Lift &amp; Tint<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Soft Gel Tips<span class="marquee-dot"> ✦</span></span>
+    <span class="marquee-item">Nail Art 3D<span class="marquee-dot"> ✦</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="servizi">
+  <div class="section-label">I miei servizi</div>
+  <h2 class="section-title">Ogni trattamento,<br>una <em>cura esclusiva</em></h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <span class="service-icon">💅</span>
+      <div class="service-name">Gel Naturale</div>
+      <p class="service-desc">Applicazione gel su unghia naturale per una manicure perfetta e duratura fino a 4 settimane. Lucidatura e finitura professionale incluse.</p>
+      <div class="service-price">da €35 <span>/ 60 min</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <span class="service-icon">✨</span>
+      <div class="service-name">Nail Art Custom</div>
+      <p class="service-desc">Design personalizzato su misura: floreale, geometrico, astratto, 3D. Ogni set è unico — pensato su di te, eseguito a mano libera.</p>
+      <div class="service-price">da €60 <span>/ 90 min</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <span class="service-icon">🔮</span>
+      <div class="service-name">Chrome & Mirror</div>
+      <p class="service-desc">Effetto specchio cromatico con polveri pigmentate premium. Rosa gold, argento, olografico. Un finish futuristico e incredibilmente luminoso.</p>
+      <div class="service-price">da €50 <span>/ 75 min</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">04</span>
+      <span class="service-icon">🌸</span>
+      <div class="service-name">Ricostruzione Acrilica</div>
+      <p class="service-desc">Allungamento e ricostruzione con acrilico o soft gel tips. Forma personalizzata: stiletto, coffin, almond, square. Resistenza massima.</p>
+      <div class="service-price">da €70 <span>/ 120 min</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">05</span>
+      <span class="service-icon">🤍</span>
+      <div class="service-name">French Couture</div>
+      <p class="service-desc">La French reinventata: baby boomer, french colorata, reverse french. Eleganza intramontabile portata al massimo della raffinatezza.</p>
+      <div class="service-price">da €45 <span>/ 75 min</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">06</span>
+      <span class="service-icon">🎀</span>
+      <div class="service-name">Set Sposa & Eventi</div>
+      <p class="service-desc">Pacchetto completo per il grande giorno. Consulenza design, prova inclusa, applicazione il giorno dell'evento. Coordinabile con abito e stile.</p>
+      <div class="service-price">da €120 <span>/ pacchetto</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">07</span>
+      <span class="service-icon">✨</span>
+      <div class="service-name">Korean Lashes</div>
+      <p class="service-desc">Extension ciglia in stile coreano: effetto naturale, leggero e sofisticato. Ciglia singole applicate a mano per uno sguardo aperto e luminoso senza esagerare. Durata fino a 4 settimane.</p>
+      <div class="service-price">da €65 <span>/ 90 min</span></div>
+    </div>
+    <div class="service-card">
+      <span class="service-num">08</span>
+      <span class="service-icon">🌿</span>
+      <div class="service-name">Trattamento Ciglia</div>
+      <p class="service-desc">Lash lift & tint: ricostruzione e piega duratura delle ciglia naturali, colorazione e nutrimento in profondità. Sguardo intenso senza extension. Ideale come mantenimento o trattamento base.</p>
+      <div class="service-price">da €45 <span>/ 60 min</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+  <div class="portfolio-header">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">I miei <em>lavori</em></h2>
+  </div>
+  <div class="portfolio-grid">
+    <!-- 8 items portfolio -->
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="300" fill="#2A1820"/>
+        <defs><radialGradient id="p1g" cx="50%" cy="40%"><stop offset="0%" stop-color="#E8B4C0" stop-opacity="0.5"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+        <rect width="200" height="300" fill="url(#p1g)"/>
+        <rect x="30" y="60" width="45" height="75" rx="22" fill="#E8B4C0"/>
+        <rect x="30" y="60" width="45" height="30" rx="22" fill="#C47A8E"/>
+        <circle cx="52" cy="90" r="7" fill="white" opacity="0.6"/>
+        <rect x="88" y="44" width="48" height="85" rx="24" fill="#E8B4C0"/>
+        <line x1="88" y1="100" x2="136" y2="100" stroke="#C47A8E" stroke-width="2"/>
+        <line x1="88" y1="112" x2="136" y2="112" stroke="#C47A8E" stroke-width="1" opacity="0.5"/>
+        <rect x="150" y="50" width="44" height="78" rx="22" fill="#E8B4C0"/>
+        <circle cx="172" cy="78" r="10" fill="#C47A8E" opacity="0.7"/>
+        <circle cx="172" cy="78" r="5" fill="white" opacity="0.5"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">Gel Naturale</div><div class="portfolio-name-card">Rosa Pesca Delicato</div></div>
+    </div>
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="250" fill="#0D0B0E"/>
+        <defs><linearGradient id="p2g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#C9A96E" stop-opacity="0.2"/><stop offset="100%" stop-color="#E8B4C0" stop-opacity="0.1"/></linearGradient></defs>
+        <rect width="200" height="250" fill="url(#p2g)"/>
+        <rect x="15" y="50" width="38" height="68" rx="19" fill="url(#chromG2)"/>
+        <defs><linearGradient id="chromG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E8CC96"/><stop offset="50%" stop-color="#F5EDE0"/><stop offset="100%" stop-color="#8B6B3C"/></linearGradient></defs>
+        <rect x="62" y="36" width="42" height="78" rx="21" fill="url(#chromG2)"/>
+        <rect x="114" y="40" width="42" height="74" rx="21" fill="url(#chromG2)"/>
+        <rect x="164" y="52" width="36" height="64" rx="18" fill="url(#chromG2)"/>
+        <ellipse cx="24" cy="60" rx="7" ry="3" fill="white" opacity="0.5" transform="rotate(-35,24,60)"/>
+        <ellipse cx="73" cy="46" rx="8" ry="3" fill="white" opacity="0.5" transform="rotate(-35,73,46)"/>
+        <ellipse cx="125" cy="50" rx="8" ry="3" fill="white" opacity="0.5" transform="rotate(-35,125,50)"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">Chrome</div><div class="portfolio-name-card">Gold Mirror Effect</div></div>
+    </div>
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 350" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="350" fill="#150D18"/>
+        <rect x="20" y="70" width="40" height="76" rx="20" fill="#7B3FA0"/>
+        <rect x="20" y="70" width="40" height="30" rx="20" fill="#9B5FBD"/>
+        <rect x="72" y="52" width="44" height="90" rx="22" fill="#5A2A7A"/>
+        <line x1="72" y1="105" x2="116" y2="105" stroke="#C9A96E" stroke-width="1.5"/>
+        <rect x="128" y="58" width="44" height="84" rx="22" fill="#7B3FA0"/>
+        <circle cx="150" cy="95" r="12" fill="none" stroke="#C9A96E" stroke-width="1.5"/>
+        <circle cx="150" cy="95" r="5" fill="#C9A96E" opacity="0.6"/>
+        <rect x="20" y="70" width="40" height="76" rx="20" fill="none" stroke="#C9A96E" stroke-width="0.5" opacity="0.4"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">Nail Art</div><div class="portfolio-name-card">Viola Mistico</div></div>
+    </div>
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="250" fill="#1A1410"/>
+        <defs><linearGradient id="p4g" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#F5C8A0"/><stop offset="100%" stop-color="#8B4015"/></linearGradient></defs>
+        <rect x="18" y="48" width="38" height="68" rx="19" fill="url(#p4g)"/>
+        <rect x="66" y="34" width="42" height="80" rx="21" fill="url(#p4g)"/>
+        <rect x="118" y="38" width="42" height="76" rx="21" fill="url(#p4g)"/>
+        <rect x="168" y="50" width="36" height="64" rx="18" fill="url(#p4g)"/>
+        <path d="M 30 48 Q 37 44 46 48" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M 78 34 Q 87 30 96 34" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M 130 38 Q 139 34 148 38" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">Ombré</div><div class="portfolio-name-card">Sunset Gradient</div></div>
+    </div>
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="300" fill="#0D0B0E"/>
+        <rect x="22" y="55" width="40" height="72" rx="20" fill="#1E1B22"/>
+        <rect x="74" y="38" width="44" height="88" rx="22" fill="#1E1B22"/>
+        <rect x="130" y="44" width="44" height="82" rx="22" fill="#1E1B22"/>
+        <!-- Fiocchi di neve / punti bianchi -->
+        <circle cx="42" cy="75" r="2" fill="white" opacity="0.8"/>
+        <circle cx="34" cy="85" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="50" cy="90" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="96" cy="62" r="2" fill="white" opacity="0.8"/>
+        <circle cx="86" cy="72" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="108" cy="70" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="152" cy="65" r="2" fill="white" opacity="0.8"/>
+        <circle cx="144" cy="78" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="164" cy="76" r="1.5" fill="white" opacity="0.6"/>
+        <!-- Linee oro -->
+        <line x1="22" y1="95" x2="62" y2="95" stroke="#C9A96E" stroke-width="1.5"/>
+        <line x1="74" y1="95" x2="118" y2="95" stroke="#C9A96E" stroke-width="1.5"/>
+        <line x1="130" y1="95" x2="174" y2="95" stroke="#C9A96E" stroke-width="1.5"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">Nail Art</div><div class="portfolio-name-card">Black & Gold Minimal</div></div>
+    </div>
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="250" fill="#1A0A0E"/>
+        <rect x="18" y="46" width="38" height="70" rx="19" fill="#C8102E"/>
+        <rect x="66" y="32" width="42" height="82" rx="21" fill="#A00820"/>
+        <rect x="118" y="36" width="42" height="78" rx="21" fill="#C8102E"/>
+        <rect x="166" y="48" width="36" height="66" rx="18" fill="#A00820"/>
+        <path d="M 37 48 Q 37 43 42 41 Q 47 43 47 48" fill="#FF4060" opacity="0.6"/>
+        <path d="M 87 34 Q 87 29 92 27 Q 97 29 97 34" fill="#FF4060" opacity="0.6"/>
+        <path d="M 139 38 Q 139 33 144 31 Q 149 33 149 38" fill="#FF4060" opacity="0.6"/>
+        <circle cx="37" cy="72" r="4" fill="white" opacity="0.15"/>
+        <circle cx="87" cy="62" r="5" fill="white" opacity="0.15"/>
+        <circle cx="139" cy="65" r="5" fill="white" opacity="0.15"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">Gel</div><div class="portfolio-name-card">Red Cherry Gloss</div></div>
+    </div>
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 350" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="350" fill="#0A0F14"/>
+        <rect x="20" y="65" width="40" height="80" rx="20" fill="#1A2840"/>
+        <rect x="20" y="65" width="40" height="40" rx="20" fill="#0A2060"/>
+        <rect x="72" y="46" width="44" height="96" rx="22" fill="#0A2060"/>
+        <rect x="128" y="52" width="44" height="88" rx="22" fill="#1A2840"/>
+        <line x1="72" y1="115" x2="116" y2="115" stroke="#4A90D9" stroke-width="1.5"/>
+        <!-- Stars -->
+        <circle cx="40" cy="82" r="1.5" fill="#7AB8F5" opacity="0.9"/>
+        <circle cx="52" cy="96" r="1" fill="#7AB8F5" opacity="0.7"/>
+        <circle cx="30" cy="100" r="1" fill="#7AB8F5" opacity="0.7"/>
+        <circle cx="94" cy="66" r="1.5" fill="#7AB8F5" opacity="0.9"/>
+        <circle cx="104" cy="80" r="1" fill="#7AB8F5"/>
+        <circle cx="82" cy="75" r="1" fill="#7AB8F5" opacity="0.7"/>
+        <circle cx="150" cy="70" r="1.5" fill="#7AB8F5" opacity="0.9"/>
+        <circle cx="162" cy="85" r="1" fill="#7AB8F5"/>
+        <!-- Crescent moon -->
+        <path d="M 42 105 Q 32 108 32 118 Q 32 128 42 131 Q 38 120 42 110 Z" fill="#7AB8F5" opacity="0.5"/>
+        <path d="M 154 100 Q 144 103 144 113 Q 144 123 154 126 Q 150 115 154 105 Z" fill="#7AB8F5" opacity="0.5"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">Nail Art</div><div class="portfolio-name-card">Galaxy Night</div></div>
+    </div>
+    <div class="portfolio-item">
+      <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="200" height="250" fill="#F5EDE4" opacity="0.05"/>
+        <rect width="200" height="250" fill="#0F0E10"/>
+        <rect x="18" y="46" width="38" height="70" rx="19" fill="#F0EAE2"/>
+        <rect x="66" y="32" width="42" height="82" rx="21" fill="#F0EAE2"/>
+        <rect x="118" y="36" width="42" height="78" rx="21" fill="#F0EAE2"/>
+        <rect x="166" y="48" width="36" height="66" rx="18" fill="#F0EAE2"/>
+        <!-- French nera -->
+        <rect x="18" y="46" width="38" height="28" rx="19" fill="#1E1B22"/>
+        <rect x="66" y="32" width="42" height="28" rx="21" fill="#1E1B22"/>
+        <rect x="118" y="36" width="42" height="28" rx="21" fill="#1E1B22"/>
+        <rect x="166" y="48" width="36" height="26" rx="18" fill="#1E1B22"/>
+        <!-- Gold rim -->
+        <path d="M18 74 Q37 78 56 74" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+        <path d="M66 60 Q87 64 108 60" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+        <path d="M118 64 Q139 68 160 64" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+        <path d="M166 74 Q184 78 202 74" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+      </svg>
+      <div class="portfolio-overlay"><div class="portfolio-tag">French Couture</div><div class="portfolio-name-card">Black French Gold Line</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-visual">
+    <div class="about-frame">
+      <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg" width="100%" style="display:block">
+        <rect width="400" height="520" fill="#1A1720"/>
+        <defs><radialGradient id="aboutG" cx="40%" cy="30%"><stop offset="0%" stop-color="#E8B4C0" stop-opacity="0.25"/><stop offset="60%" stop-color="#C9A96E" stop-opacity="0.05"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+        <rect width="400" height="520" fill="url(#aboutG)"/>
+        <!-- Ritratto stilizzato di nail artist al lavoro -->
+        <!-- Tavolo -->
+        <rect x="0" y="360" width="400" height="160" fill="#131117"/>
+        <rect x="0" y="360" width="400" height="8" fill="#C9A96E" opacity="0.3"/>
+        <!-- Braccio / mano cliente sul tavolo -->
+        <path d="M 60 370 Q 80 355 120 350 L 280 350 Q 320 355 340 370 L 340 420 Q 320 430 280 432 L 120 432 Q 80 430 60 420 Z" fill="#F0C8B0"/>
+        <!-- Unghie in lavorazione sulla mano cliente -->
+        <rect x="100" y="345" width="30" height="52" rx="15" fill="#E8B4C0"/>
+        <rect x="140" y="332" width="34" height="60" rx="17" fill="#E8B4C0"/>
+        <rect x="185" y="335" width="34" height="58" rx="17" fill="#C9A96E"/>
+        <rect x="230" y="345" width="32" height="52" rx="16" fill="#E8B4C0"/>
+        <rect x="269" y="355" width="28" height="46" rx="14" fill="#E8B4C0"/>
+        <!-- Pennello della nail artist -->
+        <rect x="190" y="260" width="6" height="90" rx="3" fill="#8B6B3C" transform="rotate(-20,190,260)"/>
+        <rect x="188" y="330" width="8" height="20" rx="2" fill="#C9A96E" opacity="0.9" transform="rotate(-20,188,330)"/>
+        <!-- Punta pennello con vernice rosa -->
+        <ellipse cx="183" cy="358" rx="4" ry="8" fill="#C47A8E" transform="rotate(-20,183,358)"/>
+        <!-- Braccio artista -->
+        <path d="M 240 270 Q 260 290 250 320 L 220 360 Q 200 375 190 365 L 195 340 Q 200 330 215 310 L 225 270 Z" fill="#F0C8B0"/>
+        <!-- Decorazioni luminose sfondo -->
+        <circle cx="50" cy="80" r="40" fill="none" stroke="#C9A96E" stroke-width="0.5" opacity="0.2"/>
+        <circle cx="350" cy="200" r="55" fill="none" stroke="#E8B4C0" stroke-width="0.5" opacity="0.15"/>
+        <circle cx="200" cy="180" r="120" fill="none" stroke="#C9A96E" stroke-width="0.3" opacity="0.1"/>
+        <!-- Nome -->
+        <text x="200" y="260" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="48" fill="#F0EAE2" font-weight="300" opacity="0.08">CHIARA</text>
+      </svg>
+      <div class="about-badge">
+        <strong>8+</strong>
+        <span>anni di arte</span>
+      </div>
+    </div>
+  </div>
+  <div class="about-text">
+    <div class="section-label">Chi sono</div>
+    <h2 class="section-title">Credo che ogni<br>unghi sia una<br><em>tela bianca</em></h2>
+    <p>Sono Chiara, nail artist con oltre <strong>8 anni di esperienza</strong> nel settore della nail art professionale. Ho iniziato per pura passione — quegli smalti colorati sul comodino a 16 anni — e non mi sono più fermata.</p>
+    <p>Mi sono formata a Milano e Londra, con corsi avanzati in tecniche acriliche, gel, e nail art pittorica. Ogni set che realizzo è <strong>pensato su misura</strong>: parto da te, dal tuo stile, dal tuo outfit, dalla tua personalità.</p>
+    <p>Il mio studio è il mio rifugio. E per 60-120 minuti, vuoi che diventi anche il tuo.</p>
+    <div class="skills-list">
+      <span class="skill-tag">Gel Professionale</span>
+      <span class="skill-tag">Acrilico Avanzato</span>
+      <span class="skill-tag">Nail Art Pittorica</span>
+      <span class="skill-tag">Chrome & Pigmenti</span>
+      <span class="skill-tag">Soft Gel Tips</span>
+      <span class="skill-tag">Nail Design 3D</span>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="booking">
+  <div class="booking-inner">
+    <div class="section-label">Prenota</div>
+    <h2 class="section-title">Riserva il tuo<br><em>appuntamento</em></h2>
+    <p class="booking-sub">Compila il modulo — si aprirà automaticamente la tua email con tutti i dati precompilati. In alternativa puoi contattarmi direttamente su WhatsApp.</p>
+    <div class="booking-form">
+      <div class="form-row">
+        <div class="form-field full">
+          <label>Nome e Cognome</label>
+          <input type="text" id="fname" placeholder="Il tuo nome completo">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" id="femail" placeholder="La tua email">
+        </div>
+        <div class="form-field">
+          <label>Servizio</label>
+          <select id="fservice">
+            <option value="">Seleziona un servizio…</option>
+            <option>Gel Naturale — da €35</option>
+            <option>Nail Art Custom — da €60</option>
+            <option>Chrome & Mirror — da €50</option>
+            <option>Ricostruzione Acrilica — da €70</option>
+            <option>French Couture — da €45</option>
+            <option>Set Sposa & Eventi — da €120</option>
+            <option>Korean Lashes — da €65</option>
+            <option>Trattamento Ciglia (Lash Lift & Tint) — da €45</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Data preferita</label>
+          <input type="date" id="fdate">
+        </div>
+        <div class="form-field">
+          <label>Orario preferito</label>
+          <select id="ftime">
+            <option value="">Seleziona orario…</option>
+            <option>Mattina (9:00–12:00)</option>
+            <option>Primo pomeriggio (12:00–15:00)</option>
+            <option>Pomeriggio (15:00–19:00)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field full">
+          <label>Note o ispirazioni</label>
+          <textarea id="fnote" placeholder="Descrivi il look che hai in mente…"></textarea>
+        </div>
+      </div>
+      <button class="form-submit" onclick="submitBooking()">Invia richiesta di prenotazione ✦</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="recensioni">
+  <div class="section-label">Recensioni</div>
+  <h2 class="section-title">Lo dicono<br><em>le clienti</em></h2>
+  <div class="reviews-grid">
+    <div class="review-item">
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <p class="review-text">"Chiara è un'artista vera. Ha trasformato le mie unghie in qualcosa che non avrei mai osato immaginare. Ogni volta che le guardo mi sento bella."</p>
+      <div class="review-author"><strong>Valentina M.</strong> · Milano</div>
+    </div>
+    <div class="review-item">
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <p class="review-text">"Il set per il mio matrimonio era perfetto. Coordinato con l'abito, elegante ma non banale. Ho ricevuto complimenti da tutti gli ospiti."</p>
+      <div class="review-author"><strong>Chiara B.</strong> · Como</div>
+    </div>
+    <div class="review-item">
+      <div class="review-stars">★ ★ ★ ★ ★</div>
+      <p class="review-text">"Vado da Chiara da 3 anni e non cambierei mai. Ogni volta è un'esperienza — lo studio è bellissimo, lei è bravissima, e il risultato è sempre WOW."</p>
+      <div class="review-author"><strong>Alessia R.</strong> · Monza</div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="insta-section">
+  <div class="section-label" style="justify-content:center">Seguimi</div>
+  <div class="insta-handle">@chiara.nails</div>
+  <p class="insta-sub">Ogni giorno nuovi lavori, ispirazioni e dietro le quinte</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo">Chiara<span style="color:var(--rose)">.</span>Nails</a>
+    <p>Nail art professionale su appuntamento. Ogni set è unico, pensato e realizzato su misura per te.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Servizi</h5>
+    <a href="#">Gel Naturale</a>
+    <a href="#">Nail Art Custom</a>
+    <a href="#">Chrome & Mirror</a>
+    <a href="#">Ricostruzione</a>
+    <a href="#">Set Sposa</a>
+    <a href="#">Korean Lashes</a>
+    <a href="#">Trattamento Ciglia</a>
+  </div>
+  <div class="footer-col">
+    <h5>Contatti</h5>
+    <a href="mailto:chiaranails18@gmail.com">✉️ chiaranails18@gmail.com</a>
+    <a href="https://instagram.com/chiara.nails" target="_blank">Instagram @chiara.nails</a>
+    <a href="#booking">Prenota online</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 Chiara Nails</span>
+  <span>Handcrafted with ♥</span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+let mx=window.innerWidth/2, my=window.innerHeight/2;
+let rx=mx, ry=my;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px'; cur.style.top = my+'px';
+});
+
+function animRing(){
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a,button,[onclick],.portfolio-item,.mosaic-cell,.service-card').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('expand'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll to
+function scrollTo(sel){ document.querySelector(sel)?.scrollIntoView({behavior:'smooth'}); }
+
+// Booking
+function submitBooking(){
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const service = document.getElementById('fservice').value;
+  const date = document.getElementById('fdate').value;
+  const time = document.getElementById('ftime').value;
+  const note = document.getElementById('fnote').value.trim();
+
+  if(!name){ showToast('✦ Inserisci il tuo nome per continuare'); return; }
+  if(!email || !email.includes('@')){ showToast('✦ Inserisci un\'email valida'); return; }
+  if(!service){ showToast('✦ Seleziona un servizio'); return; }
+
+  // Componi corpo email
+  const subject = encodeURIComponent('Richiesta appuntamento — ' + service);
+  const body = encodeURIComponent(
+    'Nome: ' + name + '\n' +
+    'Email: ' + email + '\n' +
+    'Servizio: ' + service + '\n' +
+    'Data preferita: ' + (date || 'non specificata') + '\n' +
+    'Orario preferito: ' + (time || 'non specificato') + '\n\n' +
+    'Note:\n' + (note || '—')
+  );
+
+  // Apre client email con tutti i dati precompilati
+  window.location.href = 'mailto:chiaranails18@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Dopo 1.5s mostra anche il link WhatsApp come alternativa
+  setTimeout(() => {
+    const waText = encodeURIComponent(
+      'Ciao Chiara! Vorrei prenotare un appuntamento.\n' +
+      'Servizio: ' + service + '\n' +
+      'Data: ' + (date || 'da concordare') + '\n' +
+      'Orario: ' + (time || 'da concordare') + '\n' +
+      'Nome: ' + name
+    );
+    const waUrl = 'https://wa.me/393315010564?text=' + waText;
+    showToastWA(waUrl);
+  }, 1500);
+}
+
+function showToastWA(url){
+  const t = document.getElementById('toast');
+  t.innerHTML = '✦ Email aperta! Oppure <a href="' + url + '" target="_blank" style="color:var(--gold-light);text-decoration:underline;">scrivimi su WhatsApp</a>';
+  t.classList.add('show');
+  t.style.pointerEvents = 'auto';
+  setTimeout(() => { t.classList.remove('show'); t.style.pointerEvents = 'none'; }, 6000);
+}
+
+// Toast
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Intersection observer for subtle reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, {threshold: 0.08});
+
+document.querySelectorAll('.service-card,.review-item,.portfolio-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.7s ease, transform 0.7s ease, background 0.3s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
